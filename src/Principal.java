@@ -20,6 +20,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Principal extends JFrame {
 
@@ -36,6 +37,7 @@ public class Principal extends JFrame {
 	private JButton btn8;
 	private JButton btn9;
 	private JButton btnGanador;
+	private JButton playerBtn;
 
 	/**
 	 * Launch the application.
@@ -66,10 +68,14 @@ public class Principal extends JFrame {
 		if(turnoJugador.equals("X")) {
 			txtTurnoDe.setText("TURNO DE O");
 			turnoJugador = "O";
+			playerBtn.setText("O");
+			playerBtn.setForeground(Color.RED);
 		}
 		else {
 			txtTurnoDe.setText("TURNO DE X");
 			turnoJugador = "X";
+			playerBtn.setText("X");
+			playerBtn.setForeground(Color.BLUE);
 		}
 	}
 	
@@ -133,7 +139,7 @@ public class Principal extends JFrame {
 			&& !btn4.getText().equals(" ") && !btn5.getText().equals(" ") && !btn6.getText().equals(" ") 
 			&& !btn7.getText().equals(" ") && !btn8.getText().equals(" ") && !btn9.getText().equals(" ")
 			&& !btnGanador.getText().equals("Ganador O") && !btnGanador.getText().equals("Ganador X")) {
-//				btnGanador.setText("EMPATE ");
+				btnGanador.setText("EMPATE ");
 		}
 		if(!btn1.getText().equals(" ") && !btn2.getText().equals(" ") && !btn3.getText().equals(" ") 
 				&& !btn4.getText().equals(" ") && !btn5.getText().equals(" ") && !btn6.getText().equals(" ") 
@@ -188,7 +194,13 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		
-		JButton btnNewButton = new JButton("New button");
+		playerBtn = new JButton("");
+		playerBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		playerBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		playerBtn.setEnabled(false);
 		
 		btn1 = new JButton(" ");
 		btn1.setFont(new Font("Tahoma", Font.PLAIN, 80));
@@ -371,11 +383,12 @@ public class Principal extends JFrame {
 		});
 		
 		btnGanador = new JButton("");
+		btnGanador.setEnabled(false);
 		btnGanador.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		txtTurnoDe = new JTextField();
 		txtTurnoDe.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtTurnoDe.setText("TURNO DE ");
+		txtTurnoDe.setText("TURNO DE :");
 		txtTurnoDe.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -384,9 +397,9 @@ public class Principal extends JFrame {
 					.addGap(5)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(44)
+							.addComponent(playerBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(txtTurnoDe, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(338)
 							.addComponent(btn3, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE))
@@ -417,9 +430,9 @@ public class Principal extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(5)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtTurnoDe, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(playerBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(txtTurnoDe, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
 					.addGap(31)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btn3, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
