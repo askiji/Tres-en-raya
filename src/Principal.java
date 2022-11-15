@@ -132,8 +132,8 @@ public class Principal extends JFrame {
 		if(!btn1.getText().equals(" ") && !btn2.getText().equals(" ") && !btn3.getText().equals(" ") 
 			&& !btn4.getText().equals(" ") && !btn5.getText().equals(" ") && !btn6.getText().equals(" ") 
 			&& !btn7.getText().equals(" ") && !btn8.getText().equals(" ") && !btn9.getText().equals(" ")
-			&& !btnGanador.equals("Ganador O") && !btnGanador.equals("Ganador X")) {
-				btnGanador.setText("EMPATE ");
+			&& !btnGanador.getText().equals("Ganador O") && !btnGanador.getText().equals("Ganador X")) {
+//				btnGanador.setText("EMPATE ");
 		}
 		if(!btn1.getText().equals(" ") && !btn2.getText().equals(" ") && !btn3.getText().equals(" ") 
 				&& !btn4.getText().equals(" ") && !btn5.getText().equals(" ") && !btn6.getText().equals(" ") 
@@ -201,8 +201,8 @@ public class Principal extends JFrame {
 					} else {
 						btn1.setForeground(Color.BLUE);
 					}
-					cambiarTurno();
 					checkCombinaciones();
+					cambiarTurno();
 					isEmpate();
 				}
 			}
@@ -220,8 +220,8 @@ public class Principal extends JFrame {
 				else {
 					btn2.setForeground(Color.BLUE);
 				}
-				cambiarTurno();
 				checkCombinaciones();
+				cambiarTurno();
 				isEmpate();
 				}
 			}
@@ -240,8 +240,8 @@ public class Principal extends JFrame {
 				else {
 					btn3.setForeground(Color.BLUE);
 				}
-				cambiarTurno();
 				checkCombinaciones();
+				cambiarTurno();
 				isEmpate();
 				}
 				
@@ -260,8 +260,8 @@ public class Principal extends JFrame {
 				else {
 					btn4.setForeground(Color.BLUE);
 				}
-				cambiarTurno();
 				checkCombinaciones();
+				cambiarTurno();
 				isEmpate();
 				}
 			}
@@ -279,8 +279,8 @@ public class Principal extends JFrame {
 				else {
 					btn5.setForeground(Color.BLUE);
 				}
-				cambiarTurno();
 				checkCombinaciones();
+				cambiarTurno();
 				isEmpate();
 				}
 			}
