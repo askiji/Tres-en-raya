@@ -3,24 +3,27 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 public class Principal extends JFrame {
 
@@ -38,7 +41,8 @@ public class Principal extends JFrame {
 	private JButton btn9;
 	private JButton btnGanador;
 	private JButton playerBtn;
-
+	public JButton btnAyuda;
+	public static Principal frame;
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +50,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
+					frame = new Principal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -390,6 +394,12 @@ public class Principal extends JFrame {
 		txtTurnoDe.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtTurnoDe.setText("TURNO DE :");
 		txtTurnoDe.setColumns(10);
+		
+		btnAyuda = new JButton("AYUDA");
+		btnAyuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -399,7 +409,9 @@ public class Principal extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(playerBtn, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtTurnoDe, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txtTurnoDe, GroupLayout.PREFERRED_SIZE, 301, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnAyuda))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(338)
 							.addComponent(btn3, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE))
@@ -432,7 +444,9 @@ public class Principal extends JFrame {
 					.addGap(5)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(playerBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(txtTurnoDe, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtTurnoDe, GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+							.addComponent(btnAyuda)))
 					.addGap(31)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btn3, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
@@ -451,6 +465,26 @@ public class Principal extends JFrame {
 						.addComponent(btnGanador, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNueva, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
 		);
+		
+		cargarAyuda();
 		contentPane.setLayout(gl_contentPane);
 	}
+	private void cargarAyuda(){
+		try {
+			// Carga el fichero de ayuda
+			File fichero = new File("src/help/help.hs");
+			URL hsURL = fichero.toURI().toURL();
+		 
+			// Crea el HelpSet y el HelpBroker
+			HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+			HelpBroker hb = helpset.createHelpBroker();
+		 
+			// lanza la ayuda al pulsar F1. mntmIndice objeto que queremos asociar a la ayuda
+			hb.enableHelpOnButton(btnAyuda, "test", helpset);
+			hb.enableHelpKey(frame.getContentPane(), "test", helpset);
+		 
+		} catch (Exception e) {
+			System.out.println("Error al cargar la ayuda: " + e);
+		}
+		}
 }
